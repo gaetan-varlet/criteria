@@ -21,7 +21,8 @@ public class TransformationsUtils {
 		Map<String, Set<String>> map = multiValueMap.entrySet().stream()
 				.collect(toMap(Map.Entry::getKey, e -> e.getValue().stream().collect(toSet())));
 		// conservation des Entry dont les clés sont dans la collection 'parametres'
-		Map<String, Set<String>> newMap = map.entrySet().stream().filter(e -> parametres.contains(e.getKey()))
+		Map<String, Set<String>> newMap = map.entrySet().stream()
+				.filter(e -> parametres.contains(e.getKey()))
 				.collect(toMap(e -> e.getKey(), e -> e.getValue()));
 		return newMap;
 	}
