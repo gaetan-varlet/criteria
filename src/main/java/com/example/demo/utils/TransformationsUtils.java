@@ -17,8 +17,7 @@ public class TransformationsUtils {
 	}
 
 	public static Map<String, Set<String>> filtrerParametresRequetes(
-			MultiValueMap<String, String> multiValueMap,
-			Set<String> parametres) {
+			MultiValueMap<String, String> multiValueMap, Set<String> parametres) {
 		// transformation en map Java
 		Map<String, Set<String>> map = multiValueMap.entrySet().stream()
 				.collect(toMap(Map.Entry::getKey, e -> e.getValue().stream().collect(toSet())));
