@@ -32,7 +32,8 @@ public class PersonneService {
 	@Autowired
 	private PersonneRepository personneRepository;
 
-	public List<Personne> findAll(MultiValueMap<String, String> multiValueMap) throws ClassNotFoundException {
+	public List<Personne> findAll(MultiValueMap<String, String> multiValueMap)
+			throws ClassNotFoundException {
 		// si pas de critères de filtre, renvoie de toutes les personnes
 		if (multiValueMap == null || multiValueMap.isEmpty()) {
 			return personneRepository.findAll();
@@ -47,7 +48,8 @@ public class PersonneService {
 			CriteriaQuery<Personne> query = builder.createQuery(Personne.class);
 			Root<Personne> resourceRoot = query.from(Personne.class);
 			// exécution de la requête
-			return em.createQuery(query.where(creationPredicate(builder, resourceRoot, attributs))).getResultList();
+			return em.createQuery(query.where(creationPredicate(builder, resourceRoot, attributs)))
+					.getResultList();
 		}
 	}
 
@@ -58,7 +60,8 @@ public class PersonneService {
 		for (String key : attributs.keySet()) {
 			// si une seule valeur, utilisation d'un EQUAL
 			if (attributs.get(key).size() == 1) {
-				clauses.add(builder.equal(root.get(key), attributs.get(key).stream().findFirst().get()));
+				clauses.add(builder.equal(root.get(key),
+						attributs.get(key).stream().findFirst().get()));
 				// si deux valeurs, utilisation d'un IN
 			} else if (attributs.get(key).size() >= 2) {
 				clauses.add(root.get(key).in(attributs.get(key)));
@@ -71,7 +74,8 @@ public class PersonneService {
 	private Predicate[] creationPredicateSansAccents(CriteriaBuilder builder, Root<Personne> root,
 			Map<String, Set<String>> attributs) {
 		List<Predicate> clauses = new ArrayList<>();
-		Expression<String> unaccent = builder.function("unaccent", String.class, builder.lower(root.get("prenom")));
+		Expression<String> unaccent = builder.function("unaccent", String.class,
+				builder.lower(root.get("prenom")));
 		Predicate p = builder.like(unaccent, "%" + "toto" + "%");
 		clauses.add(p);
 		return clauses.toArray(new Predicate[clauses.size()]);
