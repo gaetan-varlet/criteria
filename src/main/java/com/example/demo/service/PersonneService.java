@@ -16,12 +16,12 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.example.demo.model.Personne;
-import com.example.demo.repository.PersonneRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
+
+import com.example.demo.model.Personne;
+import com.example.demo.repository.PersonneRepository;
 
 @Service
 public class PersonneService {
